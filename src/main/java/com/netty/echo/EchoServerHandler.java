@@ -24,12 +24,18 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
          * thrid:
          * ctx.writeAndFlush(Unpooled.copiedBuffer("xxxxx", CharsetUtil.UTF-8))
         */
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] bytes = new byte[buf.readableBytes()];
-        buf.readBytes(bytes);
-        String body = new String(bytes, "UTF-8")
-                      .substring(0, bytes.length - System.getProperty("line.separator")
-                      .length());
+        /**
+         * ByteBuf buf = (ByteBuf) msg;
+         * byte[] bytes = new byte[buf.readableBytes()];
+         *         buf.readBytes(bytes);
+         *         String body = new String(bytes, "UTF-8")
+         *        .substring(0, bytes.length - System.getProperty("line.separator")
+         *        .length());
+         * System.out.println("server get info : " + body + ", get info time: " + ++counter);
+         */
+
+        // use LineBaseFrameDecoder and StringDecoder, convert msg to String
+        String body = (String) msg;
         System.out.println("server get info : " + body + ", get info time: " + ++counter);
 
     }
