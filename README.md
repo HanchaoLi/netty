@@ -6,4 +6,7 @@
     and send back same message to client.
     
     b). echo client simplely send message to echo server.
-    
+
+2. replicate TCP/IP pack, unpack problem: client sent 10 times message, but server only got one.
+
+      * Solution: use LineBasedFrameDecoder and StringDecoder, check branch NT-004 for more detail
