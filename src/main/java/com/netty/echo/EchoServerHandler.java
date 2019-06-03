@@ -6,6 +6,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+
+    private int counter;
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
@@ -22,9 +24,14 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
          * thrid:
          * ctx.writeAndFlush(Unpooled.copiedBuffer("xxxxx", CharsetUtil.UTF-8))
         */
-        ByteBuf data = (ByteBuf) msg;
-        System.out.println("server get data: " + data.toString(CharsetUtil.UTF_8));
-        ctx.writeAndFlush(data);
+        ByteBuf buf = (ByteBuf) msg;
+        byte[] bytes = new byte[buf.readableBytes()];
+        buf.readBytes(bytes);
+        String body = new String(bytes, "UTF-8")
+                      .substring(0, bytes.length - System.getProperty("line.separator")
+                      .length());
+        System.out.println("server get info : " + body + ", get info time: " + ++counter);
+
     }
 
     @Override
