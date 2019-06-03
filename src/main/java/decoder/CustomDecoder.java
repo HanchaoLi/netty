@@ -1,0 +1,14 @@
+package decoder;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.MessageToByteEncoder;
+
+import java.util.List;
+
+public class CustomDecoder extends MessageToByteEncoder<Integer> {
+    protected void encode(ChannelHandlerContext ctx, Integer msg, ByteBuf out) throws Exception {
+        out.writeInt(msg);
+    }
+}
